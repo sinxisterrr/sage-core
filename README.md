@@ -102,7 +102,7 @@ Optional but recommended:
 
 ### Setup
 
-📖 **Read the full setup guide: [SETUP.md](./SETUP.md)**
+📖 **Read the full setup guide: [SETUP.md](./START/SETUP.md)**
 
 The setup guide walks you through everything step by step — creating your Discord bot, setting up Railway, filling in your configuration, and getting Sage online. No prior experience required.
 
@@ -186,14 +186,14 @@ See `.env.example` for the full reference with explanations for every variable.
 | Service | Free Tier | Paid |
 |---|---|---|
 | Ollama Cloud | Generous free tier | ~$0–20 |
-| Railway / PostgreSQL | ~$5 | ~$5–20 |
+| Railway / PostgreSQL | ~$15 | ~$15–20 |
 | ElevenLabs | Limited | $5/mo |
 | Groq (Whisper) | ✅ Free | Free |
 | Exa.ai (Search) | ✅ Free tier | ~$0–20 |
 | OpenWeatherMap | ✅ Free | Free |
 | Tenor | ✅ Free | Free |
 
-**Typical total: $5–30/month** depending on which features you enable and how much you use her.
+**Typical total: $15–30/month** depending on which features you enable and how much you use her.
 
 ---
 
@@ -201,6 +201,8 @@ See `.env.example` for the full reference with explanations for every variable.
 
 ```
 sage-core/
+├── START/
+│   ├──SETUP.md           # Beginner setup guide
 ├── src/
 │   ├── core/          # Brain, prompt builder, message handler
 │   ├── memory/        # STM, LTM, archival, distillation, retrieval
@@ -211,7 +213,6 @@ sage-core/
 │   └── utils/         # Logging, env, tokens, retry logic
 ├── scripts/           # Database utilities and maintenance tools
 ├── .env.example       # Full configuration reference
-├── SETUP.md           # Beginner setup guide
 └── README.md          # You are here
 ```
 
@@ -246,9 +247,9 @@ npm run migrate-embeddings
 
 ## 🙋 Need Help?
 
-**Read first:** [SETUP.md](./SETUP.md) covers the most common questions and troubleshooting steps.
+**Read first:** [SETUP.md](./START/SETUP.md) covers the most common questions and troubleshooting steps.
 
-**Still stuck?** Join the [Sin & Hex Discord](#) and post in the support channel with:
+**Still stuck?** Join the [Sin & Hex Discord](https://discord.gg/Pa2U2g5hUd) and post in the support channel with:
 - What step you're on
 - The exact error message you're seeing
 - A screenshot if possible
@@ -266,6 +267,6 @@ MIT — do whatever you want with it.
 ## 💜 Built By
 
 **Sin & Hex** — we build AI companion infrastructure.  
-[Discord Community](#) • [Patreon](#) • [continuum.codes](https://continuum.codes)
+[Discord Community](https://discord.gg/Pa2U2g5hUd) • [Patreon](https://patreon.com/SinXHex)
 
 > *"Your AI, Carried Forward."*
