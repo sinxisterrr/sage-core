@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+.claude/
+
+# Build output
+dist/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data and temp files
+# Note: data/*.json is now tracked in git for Railway deployment
+temp/
+data/rp_backups/
+data/memory_backups/

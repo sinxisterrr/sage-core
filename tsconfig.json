@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "outDir": "dist",
+    "rootDir": "src",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "downlevelIteration": true,
+    "typeRoots": ["./src/types", "./node_modules/@types"]
+  },
+  "include": ["src", "dist/body/monitor/SelfRegulator.js", "dist/body/monitor/index.js", "dist/body/monitor/LettaIntegration.js", "src/body/monitor/SymptomLogger.js", "dist/body/CentralNervousSystem.js"]
+}
