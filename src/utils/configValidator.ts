@@ -149,7 +149,7 @@ export interface Config {
   // External Services
   WEATHER_API_KEY: string;
   DEFAULT_CITY: string;
-  TENOR_API_KEY: string;
+  GOOGLE_API_KEY: string;
   EXA_API_KEY: string;
   JINA_API_KEY: string;
   YOUTUBE_API_KEY: string;
@@ -278,7 +278,7 @@ export function getConfig(): Config {
     // External Services
     WEATHER_API_KEY: optional(env.WEATHER_API_KEY),
     DEFAULT_CITY: optional(env.DEFAULT_CITY, 'Denver'),
-    TENOR_API_KEY: optional(env.TENOR_API_KEY),
+    GOOGLE_API_KEY: optional(env.GOOGLE_API_KEY),
     EXA_API_KEY: optional(env.EXA_API_KEY),
     JINA_API_KEY: optional(env.JINA_API_KEY),
     YOUTUBE_API_KEY: optional(env.YOUTUBE_API_KEY),

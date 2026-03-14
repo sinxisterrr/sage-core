@@ -7,7 +7,7 @@ import axios from "axios";
 import { logger } from "../utils/logger.js";
 import { Message } from "discord.js";
 
-const TENOR_API_KEY = process.env.TENOR_API_KEY;
+const TENOR_API_KEY = process.env.GOOGLE_API_KEY;
 const GIF_AUTO_SEND = process.env.GIF_AUTO_SEND === "true";
 const GIF_ENABLED = !!TENOR_API_KEY && GIF_AUTO_SEND;
 

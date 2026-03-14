@@ -50,7 +50,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
 
   {
     name: "send_gif",
-    description: "Send a GIF to express emotion or add humor. Use when appropriate for the mood.\n\n⚠️ May fail if: GIF feature disabled (TENOR_API_KEY missing) or no results found for query. If it fails, use text instead.",
+    description: "Send a GIF to express emotion or add humor. Use when appropriate for the mood.\n\n⚠️ May fail if: GIF feature disabled (GOOGLE_API_KEY missing) or no results found for query. If it fails, use text instead.",
     parameters: [
       {
         name: "query",

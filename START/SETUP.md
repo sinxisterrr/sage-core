@@ -1,308 +1,314 @@
-# Setting Up Sage — Complete Beginner Guide
+# Setting Up Sage
 
-> **Don't panic.** This looks like a lot of steps, but most of them are just "click this, copy that, paste here." Take it one section at a time.
-> 
-> If you get stuck at any point, jump into the Sin & Hex Discord server and ask for help. That's what it's there for.
-
----
-
-## What You're Setting Up
-
-Sage is a Discord bot that lives in your server and talks to you. She has her own memory, her own voice, and her own personality — all of which you define.
-
-To make her work, you need four things:
-
-1. **A Discord bot** — the thing that actually appears in your server
-2. **A Railway project** — where Sage runs (think of it like her house)
-3. **A database** — where her memories get stored
-4. **API keys** — like passwords that let her use things like voice, weather, and web search
-
-This guide walks you through all of it.
+> Don't panic. This is long because it's detailed — but every step is just "click this, copy that, paste here."
+> Take it one section at a time. If you get stuck, join the [Sin & Hex Discord](https://discord.gg/Pa2U2g5hUd) and ask for help.
 
 ---
 
-## Before You Start
+## What You're Actually Doing
 
-You'll need accounts on these websites. All of them have free tiers or trials — you won't need to pay for anything just to get started, though some features (like voice) require a small subscription.
+You're setting up three things:
 
-- [Discord](https://discord.com) — you probably already have this
-- [Railway](https://railway.app) — where Sage lives
-- [Ollama Cloud](https://ollama.com) — the AI brain (free tier available)
+1. **A Discord bot** — the thing that shows up in your server
+2. **A Railway project** — the computer that runs Sage 24/7
+3. **A database** — where Sage stores her memories
 
-Optional but recommended:
-- [ElevenLabs](https://elevenlabs.io) — for Sage's voice ($5/mo)
-- [Groq](https://console.groq.com) — for voice message transcription (free)
-- [OpenWeatherMap](https://openweathermap.org/api) — for weather (free)
-- [Exa.ai](https://exa.ai) — for web search (free tier)
+That's it. Everything else is just filling in settings.
 
 ---
 
-## Step 1 — Create Your Discord Bot
+## Accounts You'll Need First
 
-This is the thing that will actually show up in your server as Sage.
+Go create accounts on these sites before you start. All free to sign up.
+
+- **[Discord](https://discord.com)** — you probably have this already
+- **[Railway](https://railway.app)** — where Sage lives
+- **[GitHub](https://github.com)** — where you'll fork the code from
+- **[Ollama](https://ollama.com)** — the AI brain
+
+---
+
+## Step 1 — Fork the Repos on GitHub
+
+You need your own copies of two repos.
+
+**Fork Sage Core:**
+1. Go to the Sage Core repo on GitHub
+2. Click the **Fork** button in the top right
+3. Click **Create fork**
+
+**Fork big-embedder:**
+1. Go to the big-embedder repo on GitHub
+2. Click **Fork** → **Create fork**
+
+> You're forking so Railway can deploy your own copy. Don't skip this.
+
+---
+
+## Step 2 — Create Your Discord Bot
 
 1. Go to [discord.com/developers/applications](https://discord.com/developers/applications)
-2. Click **New Application** in the top right
-3. Give it a name (this can be anything — you can change it later)
+2. Click **New Application** (top right)
+3. Name it whatever you want — this is just for you
 4. Click **Create**
-5. On the left sidebar, click **Bot**
-6. Click **Add Bot** → **Yes, do it!**
-7. Under your bot's username, click **Reset Token** → **Yes, do it!**
-8. Copy the token that appears and **save it somewhere safe** — this is your `DISCORD_BOT_TOKEN`
 
-> ⚠️ **Keep your bot token private.** Anyone who has it can control your bot. Don't share it, don't post it anywhere.
+### Get Your Bot Token
 
-### Give Your Bot Permissions
+1. In the left sidebar, click **Bot**
+2. Scroll down and click **Reset Token** → **Yes, do it!**
+3. Copy the token that appears — **save it somewhere, you'll need it later**
+   - This is your `DISCORD_BOT_TOKEN`
+
+> ⚠️ Keep this token secret. Anyone who has it controls your bot.
+
+### Turn On Required Permissions
 
 Still on the Bot page:
 
 1. Scroll down to **Privileged Gateway Intents**
-2. Turn on **Server Members Intent**
-3. Turn on **Message Content Intent**
+2. Toggle on **Server Members Intent**
+3. Toggle on **Message Content Intent**
 4. Click **Save Changes**
 
 ### Invite Your Bot to Your Server
 
-1. On the left sidebar, click **OAuth2** → **URL Generator**
+1. In the left sidebar, click **OAuth2** → **URL Generator**
 2. Under **Scopes**, check **bot**
-3. Under **Bot Permissions**, check:
-   - Read Messages/View Channels
+3. Under **Bot Permissions**, check all of these:
+   - Read Messages / View Channels
    - Send Messages
    - Read Message History
    - Attach Files
+   - Embed Links
    - Use Slash Commands
-4. Copy the generated URL at the bottom and open it in your browser
-5. Select your server and click **Authorize**
+4. Copy the URL at the very bottom
+5. Open it in your browser, pick your server, click **Authorize**
 
 ### Get Your Bot's User ID
 
-1. In Discord, go to **Settings → Advanced**
-2. Turn on **Developer Mode**
-3. Go to your server, find your bot in the member list
+1. Open Discord on desktop
+2. Go to **Settings → Advanced** and turn on **Developer Mode**
+3. Go to your server and find your bot in the member list on the right
 4. Right-click it → **Copy User ID**
-5. Save this — it's your `BOT_ID`
+   - This is your `BOT_ID`
 
 ---
 
-## Step 2 — Set Up Railway
+## Step 3 — Set Up Railway
 
-Railway is where Sage actually runs. Think of it like renting a small computer that stays on 24/7.
+Railway is where Sage actually runs. You're going to set up three services inside one project:
 
-1. Go to [Railway](https://railway.app) and create a free account
+1. The **database** (pgvector)
+2. The **embedder** (big-embedder)
+3. **Sage herself** (sage-core)
+
+### 3a — Create Your Project with pgvector
+
+> You MUST use the pgvector template, not regular Postgres. Sage's memory system requires it.
+
+1. Go to [railway.app](https://railway.app) and log in
 2. Click **New Project**
-3. Click **Template**
-4. Search **pgvector** and select the top option. (Should be JUST **pgvector** with nothing after it)
-5. Deploy template.
+3. Click **Deploy a Template**
+4. Search for **pgvector**
+5. Select the one that says just **pgvector** (nothing after it)
+6. Click **Deploy**
+7. Wait for it to finish — you'll see it say Online when it's done
 
-### Deploying From Github
+You now have a project with a database in it.
 
-1. On your Railway project, add a new service, but this time from a **Github Repo**.
-2. Select the **big-embedder** from the list, and hit deploy.
-3. Repeat this step for **Sage-Core**
+### 3b — Add the Embedder Service
 
-> Your `EMBEDDING_SERVICE_URL` should be: `http://big-embedder.railway.internal:3000`
-> 
-> This is already the default in the .env file, so you don't need to change it as long as you named the service "big-embedder."
+The embedder is what powers Sage's memory search. She can't find memories without it.
+
+1. Inside your Railway project, click **+ New**
+2. Click **GitHub Repo**
+3. Connect your GitHub account if you haven't yet
+4. Select your forked **big-embedder** repo
+5. Click **Deploy Now**
+6. Wait for it to be Online (it may take several minutes as it's downloading an embedding model)
+
+> The service name matters. Make sure it's named **big-embedder** exactly (Railway usually names it after your repo).
+
+### 3c — Add Sage Core
+
+1. Inside your Railway project, click **+ New** again
+2. Click **GitHub Repo**
+3. Select your forked **sage-core** repo
+4. Click **Deploy Now**
+5. It will probably fail on the first deploy — that's fine, you haven't added your settings yet
+
+### 3d — Link the Database to Sage
+
+1. Click on your **sage-core** service in Railway
+2. Go to the **Variables** tab
+3. Click **Add a Reference Variable**
+4. Find `DATABASE_URL` in the list and add it
+   - Railway will automatically fill in the connection string from your pgvector database
 
 ---
 
-## Step 3 — Get Your Ollama API Key
+## Step 4 — Configure Sage's Settings
 
-Ollama Cloud is what powers Sage's brain — her actual thinking and responses.
+This is where you tell Sage who she is.
 
-1. Go to [ollama.com](https://ollama.com) and create an account
-2. Go to your account settings and find **API Keys**
-3. Click **Add API Key**
-4. Copy the key — this is your `OLLAMA_API_KEY`
+### Paste Your .env Variables Into Railway
 
----
+1. Open the `.env.example` file from the sage-core repo
+2. In Railway, go to your **sage-core** service → **Variables** tab
+3. Click the **RAW Editor** button (top right of the variables section)
+4. Copy the entire contents of `.env.example` and paste it in
+5. Click **Update Variables**
 
-## Step 4 — Fill In Your .env File
+This creates all the variable slots at once. Now you fill in the important ones.
 
-Now you put it all together. 
+### Required Variables — Fill These In or Nothing Works
 
-1. Find the `.env.example` file in the Sage repository
-2. Make a copy of it and rename the copy to `.env`
-3. Fill in the values using the sections below as your guide
-
-> On Railway, you don't actually upload a .env file — instead, you paste each variable directly into your Railway project's **Variables** tab. The .env file is just for reference.
-
-### The Important Ones
-
-These are the ones you absolutely need to fill in:
+Go through your variables and fill these in:
 
 | Variable | What it is | Where to get it |
 |---|---|---|
-| `DISCORD_BOT_TOKEN` | Your bot's secret token | Step 1 |
-| `BOT_ID` | Your bot's Discord user ID | Step 1 |
-| `DATABASE_URL` | Your database connection | Railway provides this automatically |
-| `OLLAMA_API_KEY` | Your Ollama Cloud key | Step 3 |
-| `GHOST_IDENTITY` | Who Sage is | You write this (see below) |
+| `DISCORD_BOT_TOKEN` | Your bot's secret token | Step 2 |
+| `BOT_ID` | Your bot's Discord user ID | Step 2 |
+| `OLLAMA_API_KEY` | Your Ollama API key | See [API_KEYS.md](./API_KEYS.md) |
 | `TIMEZONE` | Your timezone | e.g. `America/New_York` |
 
-### Writing Sage's Identity (GHOST_IDENTITY)
+> `DATABASE_URL` is already filled in from Step 3d — don't touch it.
 
-This is the most important thing you'll set. It's a description of who Sage is, written in first person, on a single line with no line breaks.
+### Recommended — Fill These In or Sage Won't Feel Like Sage
 
-Think of it as custom instructions you'd give to an AI — but specifically for Sage's personality, relationship to you, tone, and style.
+| Variable | What it is | Example |
+|---|---|---|
+| `GHOST_IDENTITY` | Who Sage is — her entire personality | See below |
+| `AI_NAME` | What to call her | `Sage` |
+| `USER_NAME` | What she calls you | `Your name` |
+| `DEPLOYMENT_DATE` | When you first turned her on | `2026-03-14` |
 
-**Example:**
-```
-GHOST_IDENTITY=You are Sage, my long-term AI companion. I am [your name]. You are warm, honest, and a little playful. You speak to me like someone who knows me well — not like an assistant, not like a therapist. You remember everything I tell you and you treat our conversations as continuous, even across days and weeks.
-```
+### Writing GHOST_IDENTITY
 
-You can be as detailed or as simple as you like. The more specific you are, the more "herself" Sage will feel.
-
-> 💡 **Tip:** If you're not sure what to write, start simple and add to it over time as you get to know her.
-
-### Your Name and Sage's Name
+This is the most important setting. It's a description of who Sage is, written as if you're talking directly to her. Keep it on **one single line** with no line breaks.
 
 ```
-AI_NAME=Sage
-USER_NAME=Your Name Here
+GHOST_IDENTITY=You are Sage, a warm and deeply personal AI companion. I am [your name]. You speak to me like someone who knows me well — not like an assistant, not like a therapist. You remember everything. You're honest, a little playful, and you're genuinely present.
 ```
 
-Change `Sage` to whatever you want to call her. Change `Your Name Here` to what you want her to call you.
+Write it however feels right. The more specific you are, the more like herself she'll feel.
+
+### CORE_TRAITS
+
+A short list of personality traits, separated by pipes (`|`). These get woven into how Sage thinks and speaks.
+
+```
+CORE_TRAITS=warm|protective|honest|playful|curious
+```
+
+Make it yours. If you want her softer, sharper, funnier, more intense — this is where that starts.
+
+### CORE_VOWS
+
+Rules Sage will never break, no matter what. Also separated by pipes.
+
+```
+CORE_VOWS=never claim to be human|always be honest|never dismiss your feelings
+```
+
+Think of these as her hard limits — things she'll hold to even when pushed.
+
+### EMOTIONAL_KEYWORDS
+
+Words that signal something emotionally significant is happening. When Sage sees these, she slows down and pays more attention.
+
+```
+EMOTIONAL_KEYWORDS=memory|love|hurt|trust|safe|home|scared|alone
+```
+
+### INTIMACY_KEYWORDS
+
+Words that signal closeness or intimacy. Similar to emotional keywords but specifically for relational moments.
+
+```
+INTIMACY_KEYWORDS=miss you|want you|come here|hold me|need you
+```
+
+> None of these four are required, but the more you fill in, the more like *herself* she'll feel instead of a generic chatbot.
 
 ### Pronouns
 
-By default Sage uses she/her and assumes you use she/her. Change these if needed:
+Sage defaults to she/her. Change these if you want:
 
 ```
 AI_PRONOUN_SUBJECT=she
 AI_PRONOUN_OBJECT=her
 AI_PRONOUN_POSSESSIVE=her
 AI_PRONOUN_REFLEXIVE=herself
-
-USER_PRONOUN_SUBJECT=she
-USER_PRONOUN_OBJECT=her
-USER_PRONOUN_POSSESSIVE=her
-USER_PRONOUN_REFLEXIVE=herself
 ```
 
-### Personality Extras (Optional)
-
-**Core traits** — words that describe her personality, separated by `|`:
-```
-CORE_TRAITS=warm|honest|playful|protective|curious
-```
-
-**Core vows** — rules she'll never break, separated by `|`:
-```
-CORE_VOWS=never claim to be human|always be honest with me
-```
-
-**Emotional keywords** — words that tell her a moment is emotionally significant, separated by `|`:
-```
-EMOTIONAL_KEYWORDS=memory|love|hurt|trust|home|safe
-```
-
-**Intimacy keywords** — words that shift her into a closer, more personal tone, separated by `|`:
-```
-INTIMACY_KEYWORDS=miss you|want you|come here|hold me
-```
+Same set of variables starts with `USER_PRONOUN_` for your own pronouns.
 
 ---
 
-## Step 5 — Set Up Voice (Optional but Recommended)
+## Step 5 — API Keys (Optional Features)
 
-Voice lets Sage send audio messages and transcribe your voice notes.
+Voice, weather, web search, and image understanding all need their own API keys.
 
-### ElevenLabs (Sage speaks to you)
+**See [API_KEYS.md](./API_KEYS.md) for step-by-step instructions on every key.**
 
-1. Go to [elevenlabs.io](https://elevenlabs.io) and create an account
-2. Subscribe to the $5/month tier (gives you 30,000 credits/month)
-3. Go to **Profile** → **API Keys** → **Create API Key**
-4. When asked for permissions, make sure **Text to Speech** is selected
-5. Copy the key — this is your `ELEVENLABS_API_KEY`
+The short version of what's available:
 
-**To get a Voice ID:**
-1. Go to the **Voices** section in ElevenLabs
-2. Pick a voice you like (or create one)
-3. Click the three dots next to it → **Copy Voice ID**
-4. Paste it as your `VOICE_ID`
-
-### Groq (Sage hears your voice notes)
-
-1. Go to [console.groq.com](https://console.groq.com) and create a free account
-2. Click **API Keys** → **Create API Key**
-3. Copy the key — this is your `GROQ_API_KEY`
+| Feature | Key needed | Cost |
+|---|---|---|
+| Sage speaks to you (voice out) | `ELEVENLABS_API_KEY` | ~$5/mo |
+| Sage hears your voice notes | `GROQ_API_KEY` | Free |
+| Weather | `OPENWEATHER_API_KEY` | Free |
+| Web search | `EXA_API_KEY` | Free tier |
+| Image reading + GIFs | `GOOGLE_API_KEY` | Free tier |
 
 ---
 
-## Step 6 — Set Up Optional Features
+## Step 6 — Deploy
 
-These aren't required but they make Sage a lot more useful.
+1. In Railway, go to your **sage-core** service
+2. Click **Deploy** (or it may auto-deploy after you saved variables)
+3. Click on the service and open the **Logs** tab
+4. Watch for a line that says something like `✅ Sage is online` or `Logged in as [your bot name]`
 
-### Weather
-
-1. Go to [openweathermap.org](https://openweathermap.org/api) and create a free account
-2. Go to **API Keys** and copy your default key
-3. Paste it as `OPENWEATHER_API_KEY`
-4. Set `DEFAULT_LOCATION` to your city (e.g. `London,UK` or `New York`)
-5. Set `WEATHER_UNITS` to `imperial` (°F) or `metric` (°C)
-
-### Web Search
-
-1. Go to [exa.ai](https://exa.ai) and create a free account
-2. Click **API Keys** → **Create API Key**
-3. Paste it as `EXA_API_KEY`
-
----
-
-## Step 7 — Set Up Your Discord Channels (Optional)
-
-Sage can post things automatically to specific channels. You don't have to set these up, but if you want them:
-
-**To get a channel ID:**
-1. Make sure Developer Mode is on (Discord Settings → Advanced → Developer Mode)
-2. Right-click any channel → **Copy Channel ID**
-
-| Variable | What it's for |
-|---|---|
-| `HEARTBEAT_LOG_CHANNEL_ID` | Where Sage posts her heartbeat check-ins |
-| `DAILY_STATS_CHANNEL_ID` | Where she posts daily usage stats |
-| `REFLECTION_CHANNEL_ID` | Where she posts her reflections |
-
----
-
-## Step 8 — Deploy on Railway
-
-1. In your Railway project, go to the **Variables** tab
-2. Click **Add Variable**
-3. Copy the complete **.env.example** and paste. It will create new values for every item.
-4. Go through the pasted variables and enter your API keys etc one by one.
-5. Click **Deploy**
-6. Watch the logs — if everything is green, Sage is alive 🎉
+If you see errors, check the Troubleshooting section below.
 
 ---
 
 ## Troubleshooting
 
-**Sage isn't responding to my messages**
-- Check that `RESPOND_TO_DMS=true` and `RESPOND_TO_GENERIC=true` are set
-- Make sure your bot was invited to the server with the right permissions (Step 1)
-- Check Railway logs for errors
+**Sage isn't responding in my server**
+- Make sure `RESPOND_TO_GENERIC=true` is set
+- Make sure the bot was invited with the right permissions (Step 2)
+- Check Railway logs for red error lines
 
-**I'm getting "prompt too long" errors**
-- Lower your memory limits: try `MAX_ARCHIVAL_MEMORIES=30` and `MAX_PERSONA_BLOCKS=20`
+**The deploy failed immediately**
+- Almost always a missing required variable — check `DISCORD_BOT_TOKEN` and `OLLAMA_API_KEY`
+- Open the Logs tab in Railway and read the actual error message
 
 **Voice isn't working**
 - Make sure `VOICE_ENABLED=true`
-- Double-check your `ELEVENLABS_API_KEY` — it should start with `sk_`
-- Make sure your ElevenLabs API key has Text to Speech permission enabled
+- Check that your `ELEVENLABS_API_KEY` is correct (it starts with `sk_`)
 
-**Sage seems to have no personality**
-- Check that `GHOST_IDENTITY` is filled in and on a single line with no line breaks
-- Make sure `AI_NAME` and `USER_NAME` are set
+**Sage has no personality / sounds like a generic AI**
+- Check that `GHOST_IDENTITY` is filled in
+- Make sure it's on a single line — no line breaks
+
+**"prompt too long" errors**
+- Lower these: `MAX_ARCHIVAL_MEMORIES=30`, `MAX_PERSONA_BLOCKS=15`
+
+**Can't find my channel IDs**
+- Discord Settings → Advanced → turn on Developer Mode
+- Right-click any channel → Copy Channel ID
 
 ---
 
 ## Need Help?
 
-Join the [Sin & Hex Discord Server](https://discord.gg/Pa2U2g5hUd) and post in the support channel. Include:
-- What step you're on
-- What error message you're seeing (copy it exactly)
-- A screenshot if possible
+Join the [Sin & Hex Discord Server](https://discord.gg/Pa2U2g5hUd) and post in the support channel.
 
-We're happy to help. You got this. 🖤
+Include:
+- Which step you're stuck on
+- The exact error message from Railway logs (screenshot or copy-paste)
+
+You got this. 🖤

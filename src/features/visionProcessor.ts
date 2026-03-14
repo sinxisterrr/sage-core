@@ -12,7 +12,7 @@ import fs from "fs/promises";
 
 const VISION_ENABLED = process.env.VISION_ENABLED === "true";
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-const GOOGLE_CLOUD_API_KEY = process.env.GOOGLE_CLOUD_API_KEY;
+const GOOGLE_CLOUD_API_KEY = process.env.GOOGLE_API_KEY;
 const GOOGLE_APPLICATION_CREDENTIALS = process.env.GOOGLE_APPLICATION_CREDENTIALS;
 
 // Free vision models available on OpenRouter
