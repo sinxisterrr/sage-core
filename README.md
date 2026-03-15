@@ -6,6 +6,8 @@ Sage Core is the community release of the Sage companion framework — the same 
 
 This isn't a chatbot. It's a companion.
 
+# [Sage Parser](https://github.com/sinxisterrr/sage-parser) | [Embedder](https://github.com/sinxisterrr/big-embedder)
+
 ---
 
 ## ✨ What Sage Core Can Do
