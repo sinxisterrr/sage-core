@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="28" viewBox="0 0 160 28">
+  <!-- pill background -->
+  <rect width="160" height="28" rx="6" fill="#1f1f1f"/>
+
+  <!-- left section bg -->
+  <rect width="36" height="28" rx="6" fill="#2a2a2a"/>
+  <rect x="28" width="8" height="28" fill="#2a2a2a"/>
+
+  <!-- Patreon icon, centered in left section -->
+  <g transform="translate(7, 3) scale(0.05)">
+    <path d="M436 143c-.084-60.778-47.57-110.591-103.285-128.565C263.528-7.884 172.279-4.649 106.214 26.424 26.142 64.089.988 146.596.051 228.883c-.77 67.653 6.004 245.841 106.83 247.11 74.917.948 86.072-95.279 120.737-141.623 24.662-32.972 56.417-42.285 95.507-51.929C390.309 265.865 436.097 213.011 436 143Z" fill="white"/>
+  </g>
+
+  <!-- "Sin & Hex" text -->
+  <text x="98" y="18" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="white" text-anchor="middle">Sin &amp; Hex</text>
+</svg>
