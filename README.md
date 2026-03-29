@@ -251,10 +251,7 @@ npm run migrate-embeddings
 
 **Read first:** [SETUP.md](./START/SETUP.md) covers the most common questions and troubleshooting steps.
 
-**Still stuck?** Join the [Sin & Hex Discord](https://discord.gg/Pa2U2g5hUd) and post in the support channel with:
-- What step you're on
-- The exact error message you're seeing
-- A screenshot if possible
+**Still stuck?** Join the [Sin & Hex Discord](https://discord.gg/Pa2U2g5hUd)
 
 We're happy to help. 🖤
 
