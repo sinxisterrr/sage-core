@@ -146,13 +146,13 @@ See `.env.example` for the full reference with explanations for every variable.
 
 ```
 ┌─────────────────────────────────────────┐
-│           Discord Interface              │
+│           Discord Interface             │
 │  (Messages, Voice Notes, Files, Images) │
 └──────────────┬──────────────────────────┘
                │
 ┌──────────────▼──────────────────────────┐
-│           Core Bot Engine                │
-│    (Message handling, context build)     │
+│           Core Bot Engine               │
+│    (Message handling, context build)    │
 └──────┬───────────────────────┬──────────┘
        │                       │
 ┌──────▼──────┐         ┌──────▼──────┐
@@ -164,7 +164,7 @@ See `.env.example` for the full reference with explanations for every variable.
        └───────────┬───────────┘
                    │
 ┌──────────────────▼──────────────────────┐
-│            Feature Modules               │
+│            Feature Modules              │
 │  Voice • Vision • Search • Heartbeat    │
 │  Weather • GIFs • Docs • Analytics      │
 └─────────────────────────────────────────┘
