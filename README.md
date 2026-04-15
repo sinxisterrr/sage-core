@@ -2,7 +2,7 @@
 
 **A Discord AI companion with real memory, real voice, and a real personality. Free and open source.**
 
-Sage Core is the community release of the Sage companion framework — the same foundation that powers our managed service, handed to you to run yourself. She remembers your conversations, speaks in your voice, searches the web, sees images, and has an internal life that keeps going even when you're not there.
+Sage Core is the community release of the Sage companion framework — the same foundation that powers our managed service, handed to you to run yourself. She remembers your conversations, speaks in their voice, searches the web, sees images, and has an internal life that keeps going even when you're not there.
 
 This isn't a chatbot. It's a companion.
 
